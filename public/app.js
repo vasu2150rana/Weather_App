@@ -1,33 +1,67 @@
-const getWeatherBtn = document.getElementById('getWeatherBtn');
-const cityInput = document.getElementById('city');
-const weatherInfo = document.getElementById('weatherInfo');
+document.getElementById('getWeatherBtn').addEventListener('click', getWeather);
 
-getWeatherBtn.addEventListener('click', async function () {
-    const city = cityInput.value.trim();
-    if (city === '') {
-        alert('Please enter a city name.');
-        return;
-    }
+async function getWeather() {
+    const city = document.getElementById('cityInput').value; // Get city input
+    if (!city) return;
 
     try {
-        const response = await fetch(`/weather/${city}`); 
+        const response = await fetch(`/weather/${city}`);
         const data = await response.json();
 
         if (response.ok) {
-            weatherInfo.innerHTML = `
-                <h2>Weather in ${data.city}</h2>
-                <p>Temperature: ${data.temperature}</p>
-                <p>Humidity: ${data.humidity}</p>
-                <p>Condition: ${data.condition}</p>
-            `;
+            // Update the UI with the weather data
+            document.getElementById('cityName').innerText = `Weather in ${data.city}`;
+            document.getElementById('temperature').innerText = `Temperature: ${data.temperature}`;
+            document.getElementById('humidity').innerText = `Humidity: ${data.humidity}`;
+            document.getElementById('condition').innerText = `Condition: ${data.condition}`;
+            
+            // Show the weather data and hide the error message
+            document.getElementById('weatherData').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
 
-
-            document.body.style.backgroundImage = `url('${data.imageUrl}')`;
+            // Change background based on weather condition (example for sunny weather)
+            setWeatherBackground(data.condition);
         } else {
-            weatherInfo.innerHTML = `<p style="color: red;">${data.error}</p>`;
+            throw new Error(data.message);
         }
     } catch (error) {
-        console.error('Error fetching weather data:', error);
-        weatherInfo.innerHTML = `<p style="color: red;">Error fetching weather data. Please try again later.</p>`;
+        // Handle errors
+        document.getElementById('weatherData').style.display = 'none';
+        document.getElementById('error').style.display = 'block';
     }
-});
+}
+
+// Function to change the background based on weather condition
+function setWeatherBackground(condition) {
+    let bgImageUrl;
+
+    switch (condition.toLowerCase()) {
+        case 'clear sky':
+            bgImageUrl = 'https://source.unsplash.com/1600x900/?clear-sky';
+            break;
+        case 'few clouds':
+            bgImageUrl = 'https://source.unsplash.com/1600x900/?clouds';
+            break;
+        case 'scattered clouds':
+            bgImageUrl = 'https://source.unsplash.com/1600x900/?cloudy';
+            break;
+        case 'rain':
+            bgImageUrl = 'https://source.unsplash.com/1600x900/?rainy';
+            break;
+        case 'snow':
+            bgImageUrl = 'https://source.unsplash.com/1600x900/?snow';
+            break;
+        case 'thunderstorm':
+            bgImageUrl = 'https://source.unsplash.com/1600x900/?thunderstorm';
+            break;
+        default:
+            bgImageUrl = 'https://source.unsplash.com/1600x900/?weather';
+            break;
+    }
+
+    // Change the background image of the body
+    document.body.style.backgroundImage = `url(${bgImageUrl})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.transition = 'background 1s ease-in-out';
+}

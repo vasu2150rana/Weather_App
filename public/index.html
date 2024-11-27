@@ -4,15 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Weather Application</h1>
-        <input type="text" id="city" placeholder="Enter city name" />
-        <button id="getWeatherBtn">Get Weather</button>
-        <div id="weatherInfo"></div>
+        <h1>Weather App</h1>
+        <div>
+            <input type="text" id="cityInput" placeholder="Enter city">
+            <button id="getWeatherBtn">Get Weather</button>
+        </div>
+
+        <!-- Weather Data Display Section -->
+        <div id="weatherData">
+            <h2 id="cityName"></h2>
+            <p id="temperature"></p>
+            <p id="humidity"></p>
+            <p id="condition"></p>
+        </div>
+
+        <!-- Error Message Section -->
+        <div id="error">
+            <p>City not found or an error occurred!</p>
+        </div>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>
