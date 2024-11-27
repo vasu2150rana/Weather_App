@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-size: cover; /* Ensure the background covers the entire page */
+    background-position: center;
+    color: white; /* Text color to contrast against the background */
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for the container */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#weatherInfo {
+    margin-top: 20px;
+}
